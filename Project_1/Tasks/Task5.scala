@@ -36,4 +36,5 @@ val preds = model.transform(test_df);
 val evaluator = new RegressionEvaluator().setLabelCol("target").setPredictionCol("prediction").setMetricName("rmse");
 val rmse = evaluator.evaluate(preds);
 
+preds.show();
 println(s"Root Mean Squared Error (RMSE) on test data = $rmse");
