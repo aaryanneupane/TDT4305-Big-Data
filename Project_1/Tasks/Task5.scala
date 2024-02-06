@@ -5,7 +5,7 @@ import org.apache.spark.ml.feature.VectorAssembler
 
 
 // Read the fermentation.csv file saved in my local pc
-val ferm = spark.read.option("header", "true").option("inferSchema", "true").format("csv").load("/Users/aaryan/Desktop/6. Semester/TDT4305/TDT4305/fermentation.csv");
+val ferm = spark.read.option("header", "true").option("inferSchema", "true").format("csv").load("/Users/aaryan/Desktop/6. Semester/TDT4305/TDT4305/Project_1/fermentation.csv");
 
 // Create a new dataframe with only the columns we are interested in
 val all_columns = Array("Glucose concentration", "Acetate concentration", "Ethanol concentration", "Specific oxygen uptake rate", "Specific carbon dioxide evolution rate", "Biomass");
