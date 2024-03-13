@@ -145,15 +145,18 @@ def is_prime(n):
 # A function for generating hash functions
 def generate_hash_functions(num_perm, N):
     hash_funcs = []
+    
     # Find a prime number greater than N
     p = N + 1
     while not is_prime(p):
         p += 1
+
     for _ in range(num_perm):
         # Generate random coefficients 'a' and 'b'
-        a = random.randint(1, N - 1)  # Random 'a' coefficient
-        b = random.randint(1, N - 1)  # Random 'b' coefficient
-        hash_funcs.append(lambda x: (a * x + b) % p)  # Hash function
+        a = random.randint(1, N - 1)
+        b = random.randint(1, N - 1)
+        hash_func = lambda x, a=a, b=b, p=p: (a * x + b) % p
+        hash_funcs.append(hash_func)
     return hash_funcs
 
 
@@ -167,9 +170,9 @@ def minHash(docs_signature_sets, hash_fn):
         for j, col in enumerate(row):
             if col == 1:
                 for k, hash_func in enumerate(hash_fn):
-                    hashed_value = hash_func(i + 1)
-                if hashed_value < min_hash_signatures[k][j]:
-                    min_hash_signatures[k][j] = hashed_value
+                    hashed_value = hash_func(i+1)
+                    if hashed_value < min_hash_signatures[k][j]:
+                        min_hash_signatures[k][j] = hashed_value
     return min_hash_signatures
 
 
@@ -201,6 +204,7 @@ def lsh(m_matrix):
             if hash_key not in buckets[band_num]:
                 buckets[band_num][hash_key] = []
             buckets[band_num][hash_key].append(doc_index)
+
     # Identify candidate pairs of documents
     for band_num in range(bands):
         for hash_key, docs in buckets[band_num].items():
@@ -323,7 +327,3 @@ if __name__ == "__main__":
         )
 
         print("\n")
-
-    print(
-        f"Running time difference between LSH and Naive: {(t3 - t2) - (t15 - t14)} sec\n"
-    )
